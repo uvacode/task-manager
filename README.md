@@ -2,7 +2,7 @@
 
 A clean, dark-themed task manager with categories **TODAY / TOMORROW / NEXT WEEK**, checkboxes, drag-and-drop reordering, inline editing, deletion, and browser localStorage persistence.
 
-![Main View](screenshots/main.png)
+<image-card alt="Main View" src="screenshots/main-view.png" ></image-card>
 
 ## Features
 
