@@ -2,12 +2,10 @@
 
 A clean, dark-themed task manager with categories **TODAY / TOMORROW / NEXT WEEK**, checkboxes, drag-and-drop reordering, inline editing, deletion, and browser localStorage persistence.
 
-## Screenshots
-
 <div align="center">
   <p><strong>Main View</strong></p>
   <img src="screenshots/main-view.png" alt="Main View" width="800"/>
-  
+  <br><br>
   <p><strong>Completed Tasks</strong></p>
   <img src="screenshots/completed.png" alt="Completed Tasks" width="800"/>
 </div>
@@ -33,22 +31,15 @@ A clean, dark-themed task manager with categories **TODAY / TOMORROW / NEXT WEEK
    ```bash
    cd task_manager/app
 
-## Project Structure
-task_manager/
-├── app/
-│   ├── main.py              # Flask server
-│   └── static/
-│       ├── index.html       # Main page
-│       ├── styles.css       # Dark theme styles
-│       └── app.js           # Logic: tasks, drag-and-drop, localStorage 
+Install dependencies:Bashpip install flask flask-cors
+Run the server:Bashpython main.py
+Open in browser: http://127.0.0.1:5000
 
-1. Copy the entire `task_manager` folder  
-2. Install Python (3.8+)  
-3. Install dependencies:
-   
-   ```bash
-   pip install flask flask-cors
+Running on Another Computer
 
+Copy the entire task_manager folder
+Install Python (3.8+)
+Install dependencies:Bashpip install flask flask-cors
 Run the server:Bashcd app
 python main.py
 Open in browser: http://127.0.0.1:5000
@@ -62,4 +53,4 @@ Icons: Font Awesome (CDN)
 
 License
 MIT License — feel free to use, modify, and share.
-Made with ❤️ by uvacode
+Made with ❤️ by @uvacode
