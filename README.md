@@ -4,11 +4,14 @@ A clean, dark-themed task manager with categories **TODAY / TOMORROW / NEXT WEEK
 
 ## Screenshots
 
-### Main View
-![Main View](screenshots/main-view.png)
+<div align="center">
+  <p><strong>Main View</strong></p>
+  <img src="screenshots/main-view.png" alt="Main View" width="800"/>
+  
+  <p><strong>Completed Tasks</strong></p>
+  <img src="screenshots/completed.png" alt="Completed Tasks" width="800"/>
+</div>
 
-### Completed Tasks
-![Completed Tasks](screenshots/completed.png)
 ## Features
 
 - Dark modern UI with sidebar navigation  
