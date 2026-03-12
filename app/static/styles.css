@@ -1,0 +1,225 @@
+:root {
+  --bg: #0a0a0f;
+  --surface: #111118;
+  --surface-hover: #161b22;
+  --border: #1e293b;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --grip: #4b5563;
+  --grip-hover: #9ca3af;
+  --accent: #6366f1;
+  --success: #10b981;
+  --danger: #ef4444;
+}
+
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --grip: #9ca3af;
+  --grip-hover: #64748b;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, sans-serif;
+  min-height: 100vh;
+  padding: 40px 20px;
+  line-height: 1.4;
+}
+
+.container {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#theme-toggle:hover { transform: scale(1.15); color: var(--text); }
+
+.add-task {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+#task-input {
+  flex: 1;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 1.05rem;
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+#task-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.12);
+}
+
+#add-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 48px;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#add-btn:hover { background: #4f46e5; }
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.task {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.18s ease;
+  cursor: grab;
+  user-select: none;
+}
+
+.task:active { cursor: grabbing; }
+
+.task:hover {
+  background: var(--surface-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.task.dragging {
+  opacity: 0.8;
+  transform: scale(1.015);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+.grip {
+  width: 20px;
+  text-align: center;
+  color: var(--grip);
+  font-size: 1.1rem;
+  cursor: grab;
+  opacity: 0.6;
+}
+
+.task:hover .grip { opacity: 1; color: var(--grip-hover); }
+
+.priority-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--success);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.task-text {
+  flex: 1;
+  font-size: 1.02rem;
+}
+
+.task.done .task-text {
+  text-decoration: line-through;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+
+.task:hover .actions { opacity: 0.9; }
+
+.actions button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.actions .edit:hover { color: var(--accent); }
+.actions .delete:hover { color: var(--danger); }
+
+.edit-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--accent);
+  font-size: inherit;
+  color: inherit;
+  outline: none;
+  padding: 2px 0;
+}
+
+footer {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.clear-btn {
+  background: none;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.clear-btn:hover {
+  background: rgba(239,68,68,0.1);
+}

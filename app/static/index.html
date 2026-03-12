@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Increaser Tasks</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --sidebar: #0a0e14;
+      --surface: #161b22;
+      --hover: #21262d;
+      --text: #c9d1d9;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --success: #238636;
+      --danger: #f85149;
+      --border: #30363d;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      display: flex;
+      height: 100vh;
+      font-size: 14px;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 240px;
+      background: var(--sidebar);
+      border-right: 1px solid var(--border);
+      padding: 16px 0;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 16px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    .sidebar-item:hover { background: var(--hover); color: var(--text); }
+
+    .sidebar-item.active {
+      background: var(--hover);
+      color: var(--accent);
+      font-weight: 500;
+      border-left: 3px solid var(--accent);
+    }
+
+    .sidebar-item i { width: 24px; text-align: center; margin-right: 12px; font-size: 16px; }
+
+    .main {
+      flex: 1;
+      padding: 32px 48px;
+      overflow-y: auto;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin: 0 0 32px;
+    }
+
+    .weeks {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .week-card {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .week-header {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .progress-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .dot.done { background: var(--success); }
+
+    .day-section {
+      margin-bottom: 48px;
+    }
+
+    .day-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .task {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.12s;
+      cursor: grab;
+    }
+
+    .task:hover { background: var(--hover); }
+
+    .task-check {
+      margin-right: 12px;
+      accent-color: var(--accent);
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .task-text {
+      flex: 1;
+      font-size: 1rem;
+      outline: none;
+      min-height: 20px;
+    }
+
+    .task.done .task-text {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    .task-actions {
+      display: flex;
+      gap: 16px;
+      opacity: 0.6;
+    }
+
+    .task:hover .task-actions { opacity: 1; }
+
+    .task-actions button {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .task-actions .delete:hover { color: var(--danger); }
+
+    .add-task {
+      color: var(--accent);
+      cursor: pointer;
+      font-weight: 500;
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .add-task:hover { color: #79c0ff; }
+
+    .add-input {
+      background: transparent;
+      border: none;
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); padding: 12px 0; }
+      .main { padding: 24px 16px; }
+      .weeks { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<nav class="sidebar">
+  <div class="sidebar-item"><i class="fas fa-home"></i> Home</div>
+  <div class="sidebar-item active"><i class="fas fa-check-square"></i> Tasks</div>
+  <div class="sidebar-item"><i class="fas fa-clock"></i> Manage time</div>
+  <div class="sidebar-item"><i class="fas fa-heart"></i> Habits</div>
+  <div class="sidebar-item"><i class="fas fa-folder"></i> Projects</div>
+  <div class="sidebar-item"><i class="fas fa-calendar-alt"></i> Schedule</div>
+  <div class="sidebar-item"><i class="fas fa-users"></i> Community</div>
+  <div class="sidebar-item" style="margin-top: auto;"><i class="fas fa-cog"></i> Settings</div>
+</nav>
+
+<!-- Main -->
+<main class="main">
+  <h1>To Do | Done</h1>
+
+  <div class="weeks">
+    <div class="week-card">
+      <div class="week-header">This week</div>
+      <div class="progress-dots" id="this-week-dots"></div>
+    </div>
+    <div class="week-card">
+      <div class="week-header">Next week</div>
+      <div class="progress-dots" id="next-week-dots"></div>
+    </div>
+  </div>
+
+  <!-- TODAY -->
+  <div class="day-section" data-day="today">
+    <div class="day-title">TODAY</div>
+    <div class="tasks-list" id="today-list"></div>
+    <div class="add-task" onclick="startAdd('today')"><i class="fas fa-plus"></i> Add task</div>
+  </div>
+
+  <!-- TOMORROW -->
+  <div class="day-section" data-day="tomorrow">
+    <div class="day-title">TOMORROW</div>
+    <div class="tasks-list" id="tomorrow-list"></div>
+    <div class="add-task" onclick="startAdd('tomorrow')"><i class="fas fa-plus"></i> Add task</div>
+  </div>
+
+  <!-- NEXT WEEK -->
+  <div class="day-section" data-day="nextweek">
+    <div class="day-title">NEXT WEEK</div>
+    <div class="tasks-list" id="nextweek-list"></div>
+    <div class="add-task" onclick="startAdd('nextweek')"><i class="fas fa-plus"></i> Add task</div>
+  </div>
+</main>
+
+<script>
+  // Данные задач
+  let tasks = JSON.parse(localStorage.getItem('increaser_tasks')) || {
+    today: [],
+    tomorrow: [],
+    nextweek: []
+  };
+
+  // Очистка старых завершённых (старше недели)
+  function cleanOldCompleted() {
+    const now = Date.now();
+    const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
+    Object.keys(tasks).forEach(key => {
+      tasks[key] = tasks[key].filter(t => !t.done || (t.completedAt && t.completedAt > weekAgo));
+    });
+    localStorage.setItem('increaser_tasks', JSON.stringify(tasks));
+  }
+
+  function save() {
+    localStorage.setItem('increaser_tasks', JSON.stringify(tasks));
+    renderAll();
+  }
+
+  function renderTasks(day, containerId) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = '';
+
+    tasks[day].forEach((task, idx) => {
+      const div = document.createElement('div');
+      div.className = `task ${task.done ? 'done' : ''}`;
+      div.draggable = true;
+      div.dataset.day = day;
+      div.dataset.idx = idx;
+      div.innerHTML = `
+        <input type="checkbox" class="task-check" ${task.done ? 'checked' : ''} onchange="toggle('${day}', ${idx})">
+        <div class="task-text" contenteditable="false">${task.text}</div>
+        <div class="task-actions">
+          <button onclick="editDeadline('${day}', ${idx})"><i class="far fa-calendar-alt"></i></button>
+          <button onclick="showMore('${day}', ${idx})"><i class="fas fa-ellipsis-h"></i></button>
+          <button class="delete" onclick="remove('${day}', ${idx})"><i class="far fa-trash-alt"></i></button>
+        </div>
+      `;
+
+      // Редактирование имени по двойному клику
+      const textEl = div.querySelector('.task-text');
+      textEl.ondblclick = () => {
+        textEl.contentEditable = true;
+        textEl.focus();
+        const range = document.createRange();
+        range.selectNodeContents(textEl);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      };
+      textEl.onblur = () => {
+        textEl.contentEditable = false;
+        const newText = textEl.textContent.trim();
+        if (newText !== task.text) {
+          task.text = newText;
+          save();
+        }
+      };
+      textEl.onkeydown = e => {
+        if (e.key === 'Enter') { e.preventDefault(); textEl.blur(); }
+        if (e.key === 'Escape') { textEl.textContent = task.text; textEl.blur(); }
+      };
+
+      container.appendChild(div);
+    });
+  }
+
+  function renderAll() {
+    renderTasks('today', 'today-list');
+    renderTasks('tomorrow', 'tomorrow-list');
+    renderTasks('nextweek', 'nextweek-list');
+    updateProgress();
+  }
+
+  function toggle(day, idx) {
+    const task = tasks[day][idx];
+    task.done = !task.done;
+    task.completedAt = task.done ? Date.now() : null;
+    save();
+  }
+
+  function remove(day, idx) {
+    if (!confirm('Удалить задачу?')) return;
+    tasks[day].splice(idx, 1);
+    save();
+  }
+
+  function startAdd(day) {
+    const container = document.getElementById(day + '-list');
+    const form = document.createElement('div');
+    form.className = 'task';
+    form.innerHTML = `
+      <input type="checkbox" class="task-check" disabled>
+      <input type="text" class="add-input" placeholder="Task name..." autofocus>
+      <div class="task-actions">
+        <button disabled><i class="far fa-calendar-alt"></i></button>
+        <button disabled><i class="fas fa-ellipsis-h"></i></button>
+        <button disabled><i class="far fa-trash-alt"></i></button>
+      </div>
+    `;
+    const input = form.querySelector('.add-input');
+    container.appendChild(form);
+    input.focus();
+
+    const finish = () => {
+      const text = input.value.trim();
+      if (text) {
+        tasks[day].push({ text, done: false, completedAt: null });
+        save();
+      }
+      form.remove();
+    };
+
+    input.onblur = finish;
+    input.onkeydown = e => {
+      if (e.key === 'Enter') { e.preventDefault(); finish(); }
+      if (e.key === 'Escape') { form.remove(); }
+    };
+  }
+
+  function updateProgress() {
+    // Простая имитация прогресса (можно сделать динамической по задачам)
+    const dotsThis = document.getElementById('this-week-dots');
+    const dotsNext = document.getElementById('next-week-dots');
+    dotsThis.innerHTML = dotsNext.innerHTML = '';
+    for (let i = 0; i < 7; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'dot' + (i < 3 ? ' done' : '');
+      dotsThis.appendChild(dot.cloneNode(true));
+      dotsNext.appendChild(dot);
+    }
+  }
+
+  // Drag & Drop между и внутри дней
+  document.querySelectorAll('.tasks-list').forEach(list => {
+    Sortable.create(list, {
+      group: 'tasks',
+      animation: 150,
+      handle: '.task',
+      onEnd: evt => {
+        const oldDay = evt.from.closest('.day-section').dataset.day;
+        const newDay = evt.to.closest('.day-section').dataset.day;
+        if (oldDay === newDay && evt.oldIndex === evt.newIndex) return;
+        const item = tasks[oldDay].splice(evt.oldIndex, 1)[0];
+        tasks[newDay].splice(evt.newIndex, 0, item);
+        save();
+      }
+    });
+  });
+
+  // Инициализация
+  cleanOldCompleted();
+  renderAll();
+
+  // Sidebar кликабельность (демо)
+  document.querySelectorAll('.sidebar-item').forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+    };
+  });
+</script>
+</body>
+</html>
