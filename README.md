@@ -41,7 +41,6 @@ task_manager/
 │       ├── index.html       # Main page
 │       ├── styles.css       # Dark theme styles
 │       └── app.js           # Logic: tasks, drag-and-drop, localStorage
-text## Running on Another Computer
 
 1. Copy the entire `task_manager` folder  
 2. Install Python (3.8+)  
