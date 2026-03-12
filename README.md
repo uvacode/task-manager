@@ -33,25 +33,26 @@ A clean, dark-themed task manager with categories **TODAY / TOMORROW / NEXT WEEK
    ```bash
    cd task_manager/app
 
-Install dependencies:Bashpip install flask flask-cors
-Run the server:Bashpython main.py
-Open in browser: http://127.0.0.1:5000
-
-Project Structure
-texttask_manager/
+## Project Structure
+task_manager/
 ├── app/
 │   ├── main.py              # Flask server
 │   └── static/
 │       ├── index.html       # Main page
 │       ├── styles.css       # Dark theme styles
 │       └── app.js           # Logic: tasks, drag-and-drop, localStorage
-Running on Another Computer
+text## Running on Another Computer
 
-Copy the entire task_manager folder
-Install Python
-Install dependencies: pip install flask flask-cors
-Run: cd app && python main.py
-Open http://127.0.0.1:5000
+1. Copy the entire `task_manager` folder  
+2. Install Python (3.8+)  
+3. Install dependencies:
+
+   ```bash
+   pip install flask flask-cors
+
+Run the server:Bashcd app
+python main.py
+Open in browser: http://127.0.0.1:5000
 
 Tech Stack
 
