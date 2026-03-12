@@ -45,7 +45,7 @@ task_manager/
 1. Copy the entire `task_manager` folder  
 2. Install Python (3.8+)  
 3. Install dependencies:
-
+   
    ```bash
    pip install flask flask-cors
 
