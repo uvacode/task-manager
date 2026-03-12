@@ -1,2 +1,57 @@
-# task-manager
-Modern task manager with dark UI, sidebar navigation, and categories: TODAY, TOMORROW, NEXT WEEK.   Features drag-and-drop reordering, inline task creation/editing, checkboxes with strikethrough, delete, and automatic cleanup of old completed tasks.   All data saved in localStorage. Built with Flask (Python) + Vanilla JS + SortableJS.
+# Task Manager
+
+A clean, dark-themed task manager with categories **TODAY / TOMORROW / NEXT WEEK**, checkboxes, drag-and-drop reordering, inline editing, deletion, and browser localStorage persistence.
+
+![Main View](screenshots/main.png)
+
+## Features
+
+- Dark modern UI with sidebar navigation  
+- Task categories: TODAY, TOMORROW, NEXT WEEK  
+- Progress overview for "This week" and "Next week" with dots  
+- Inline task creation (Enter to add next, Escape/Blur to finish)  
+- Checkboxes with strikethrough for completed tasks  
+- Double-click to edit task names  
+- Delete tasks  
+- Drag-and-drop to reorder or move tasks between days  
+- Automatic cleanup of completed tasks older than one week  
+- All data saved in browser localStorage (no backend needed)
+
+## How to Run
+
+1. Install Python 3.8+ → https://www.python.org  
+2. Navigate to the project folder:
+
+   ```bash
+   cd task_manager/app
+
+Install dependencies:Bashpip install flask flask-cors
+Run the server:Bashpython main.py
+Open in browser: http://127.0.0.1:5000
+
+Project Structure
+texttask_manager/
+├── app/
+│   ├── main.py              # Flask server
+│   └── static/
+│       ├── index.html       # Main page
+│       ├── styles.css       # Dark theme styles
+│       └── app.js           # Logic: tasks, drag-and-drop, localStorage
+Running on Another Computer
+
+Copy the entire task_manager folder
+Install Python
+Install dependencies: pip install flask flask-cors
+Run: cd app && python main.py
+Open http://127.0.0.1:5000
+
+Tech Stack
+
+Backend: Flask (Python)
+Frontend: HTML + CSS + Vanilla JavaScript
+Drag-and-drop: SortableJS (CDN)
+Icons: Font Awesome (CDN)
+
+License
+MIT License — feel free to use, modify, and share.
+Made with ❤️ by uvacode
